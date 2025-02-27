@@ -89,7 +89,7 @@
             this.buttonClearLogs = new System.Windows.Forms.Button();
             this.buttonClearLogs.Text = "Logları Temizle";
             this.buttonClearLogs.Size = new System.Drawing.Size(120, 30);
-            this.buttonClearLogs.Location = new System.Drawing.Point(20, 420); // Konumu ihtiyaca göre ayarla
+            this.buttonClearLogs.Location = new System.Drawing.Point(20, 430); // Konumu ihtiyaca göre ayarla
             this.buttonClearLogs.Click += new System.EventHandler(this.ButtonClearLogs_Click);
             this.Controls.Add(this.buttonClearLogs);
 
@@ -98,7 +98,7 @@
             this.checkBoxAltSatiraGec = new System.Windows.Forms.CheckBox();
             this.checkBoxAltSatiraGec.Text = "Alt Satıra Geç";
             this.checkBoxAltSatiraGec.AutoSize = true;
-            this.checkBoxAltSatiraGec.Location = new System.Drawing.Point(20, 190);
+            this.checkBoxAltSatiraGec.Location = new System.Drawing.Point(20, 200);
             this.checkBoxAltSatiraGec.Checked = true; // Varsayılan olarak işaretli
             this.groupBoxSender.Controls.Add(this.checkBoxAltSatiraGec);
 
@@ -107,7 +107,7 @@
             this.listBoxLogs = new System.Windows.Forms.ListBox();
             this.listBoxLogs.FormattingEnabled = true;
             this.listBoxLogs.ItemHeight = 15;
-            this.listBoxLogs.Location = new System.Drawing.Point(12, 250);
+            this.listBoxLogs.Location = new System.Drawing.Point(20, 260);
             this.listBoxLogs.Name = "listBoxLogs";
             this.listBoxLogs.Size = new System.Drawing.Size(250, 150);
             this.listBoxLogs.TabIndex = 5;
@@ -116,32 +116,32 @@
 
             // Gönderici Alanı
             this.groupBoxSender.Text = "Gönderici";
-            this.groupBoxSender.Location = new System.Drawing.Point(20, 20);
+            this.groupBoxSender.Location = new System.Drawing.Point(20, 30);
             this.groupBoxSender.Size = new System.Drawing.Size(250, 250);
             
             this.labelSenderPort.Text = "Port:";
-            this.labelSenderPort.Location = new System.Drawing.Point(20, 30);
-            this.comboBoxSenderPorts.Location = new System.Drawing.Point(120, 30);
+            this.labelSenderPort.Location = new System.Drawing.Point(20, 40);
+            this.comboBoxSenderPorts.Location = new System.Drawing.Point(120, 40);
             
             this.labelBaudRateSender.Text = "Baud Rate:";
-            this.labelBaudRateSender.Location = new System.Drawing.Point(20, 60);
-            this.textBoxSenderBaudRate.Location = new System.Drawing.Point(120, 60);
+            this.labelBaudRateSender.Location = new System.Drawing.Point(20, 70);
+            this.textBoxSenderBaudRate.Location = new System.Drawing.Point(120, 70);
             this.textBoxSenderBaudRate.Text = "9600";
             
             this.labelMessage.Text = "Mesaj:";
-            this.labelMessage.Location = new System.Drawing.Point(20, 90);
-            this.textBoxMessage.Location = new System.Drawing.Point(120, 90);
+            this.labelMessage.Location = new System.Drawing.Point(20, 100);
+            this.textBoxMessage.Location = new System.Drawing.Point(120, 100);
             
             this.labelSendInterval.Text = "Gönderim Sıklığı:";
-            this.labelSendInterval.Location = new System.Drawing.Point(20, 120);
-            this.textBoxSendInterval.Location = new System.Drawing.Point(120, 120);
+            this.labelSendInterval.Location = new System.Drawing.Point(20, 130);
+            this.textBoxSendInterval.Location = new System.Drawing.Point(120, 130);
             this.textBoxSendInterval.Text = "1000";
             
             this.buttonSend.Text = "Yayınla";
-            this.buttonSend.Location = new System.Drawing.Point(20, 160);
+            this.buttonSend.Location = new System.Drawing.Point(20, 170);
             
             this.buttonStop.Text = "Durdur";
-            this.buttonStop.Location = new System.Drawing.Point(120, 160);
+            this.buttonStop.Location = new System.Drawing.Point(120, 170);
             
             this.groupBoxSender.Controls.Add(this.labelSenderPort);
             this.groupBoxSender.Controls.Add(this.comboBoxSenderPorts);
@@ -156,31 +156,34 @@
             
             // Alıcı Alanı
             this.groupBoxReceiver.Text = "Alıcı";
-            this.groupBoxReceiver.Location = new System.Drawing.Point(300, 20);
+            this.groupBoxReceiver.Location = new System.Drawing.Point(300, 30);
             this.groupBoxReceiver.Size = new System.Drawing.Size(250, 250);
+
+            
+
             
             this.labelReceiverPort.Text = "Port:";
-            this.labelReceiverPort.Location = new System.Drawing.Point(20, 30);
-            this.comboBoxReceiverPorts.Location = new System.Drawing.Point(120, 30);
+            this.labelReceiverPort.Location = new System.Drawing.Point(20, 40);
+            this.comboBoxReceiverPorts.Location = new System.Drawing.Point(120, 40);
             
             this.labelBaudRateReceiver.Text = "Baud Rate:";
-            this.labelBaudRateReceiver.Location = new System.Drawing.Point(20, 60);
-            this.textBoxReceiverBaudRate.Location = new System.Drawing.Point(120, 60);
+            this.labelBaudRateReceiver.Location = new System.Drawing.Point(20, 70);
+            this.textBoxReceiverBaudRate.Location = new System.Drawing.Point(120, 70);
             this.textBoxReceiverBaudRate.Text = "9600";
             
             this.labelReceivedMessages.Text = "Alınan Mesajlar:";
-            this.labelReceivedMessages.Location = new System.Drawing.Point(20, 90);
+            this.labelReceivedMessages.Location = new System.Drawing.Point(20, 100);
 
             this.listBoxReceivedMessages = new System.Windows.Forms.ListBox();
             this.listBoxReceivedMessages.FormattingEnabled = true;
             this.listBoxReceivedMessages.ItemHeight = 15;
-            this.listBoxReceivedMessages.Location = new System.Drawing.Point(20, 190); // Yeni konum
+            this.listBoxReceivedMessages.Location = new System.Drawing.Point(20, 200); // Yeni konum
             this.listBoxReceivedMessages.Name = "listBoxReceivedMessages";
             this.listBoxReceivedMessages.Size = new System.Drawing.Size(220, 400);
             this.Controls.Add(this.listBoxReceivedMessages);
             
             this.buttonListen.Text = "Dinlemeye Başla";
-            this.buttonListen.Location = new System.Drawing.Point(20, 115);
+            this.buttonListen.Location = new System.Drawing.Point(20, 125);
             this.buttonListen.Size = new System.Drawing.Size(200, 30);
             
             this.groupBoxReceiver.Controls.Add(this.labelReceiverPort);

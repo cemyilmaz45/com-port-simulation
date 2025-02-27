@@ -3,6 +3,7 @@ C:\dev\comPortSender\bin\Debug\net9.0-windows\comPortSender.deps.json
 C:\dev\comPortSender\bin\Debug\net9.0-windows\comPortSender.runtimeconfig.json
 C:\dev\comPortSender\bin\Debug\net9.0-windows\comPortSender.dll
 C:\dev\comPortSender\bin\Debug\net9.0-windows\comPortSender.pdb
+C:\dev\comPortSender\bin\Debug\net9.0-windows\Newtonsoft.Json.dll
 C:\dev\comPortSender\bin\Debug\net9.0-windows\System.IO.Ports.dll
 C:\dev\comPortSender\bin\Debug\net9.0-windows\runtimes\android-arm\native\libSystem.IO.Ports.Native.so
 C:\dev\comPortSender\bin\Debug\net9.0-windows\runtimes\android-arm64\native\libSystem.IO.Ports.Native.so
@@ -27,6 +28,7 @@ C:\dev\comPortSender\obj\Debug\net9.0-windows\comPortSender.GeneratedMSBuildEdit
 C:\dev\comPortSender\obj\Debug\net9.0-windows\comPortSender.AssemblyInfoInputs.cache
 C:\dev\comPortSender\obj\Debug\net9.0-windows\comPortSender.AssemblyInfo.cs
 C:\dev\comPortSender\obj\Debug\net9.0-windows\comPortSender.csproj.CoreCompileInputs.cache
+C:\dev\comPortSender\obj\Debug\net9.0-windows\comPortSender.sourcelink.json
 C:\dev\comPortSender\obj\Debug\net9.0-windows\comPortS.D572E0A8.Up2Date
 C:\dev\comPortSender\obj\Debug\net9.0-windows\comPortSender.dll
 C:\dev\comPortSender\obj\Debug\net9.0-windows\refint\comPortSender.dll
