@@ -251,5 +251,4 @@ private void AboutMenuItem_Click(object sender, EventArgs e)
 
             }
         }
-git config --global user.name "cem.yilmaz@msn.com"
-git config --global user.email "zcH8NSbC"
+
