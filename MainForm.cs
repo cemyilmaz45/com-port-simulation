@@ -100,120 +100,168 @@ namespace ComPortSender
                         string message = textBoxMessage.Text;
 
                         if (checkBoxAltSatiraGec.Checked)
-    {
-        // Mesajı başa \r ekleyerek gönder, böylece eski satır kaybolmaz
-        senderPort.Write("\r" + textBoxMessage.Text.Trim() + "\n");
-    }
-    else
-    {
-        // Tek satırda güncelle
-        senderPort.Write("\r" + textBoxMessage.Text.Trim());
-    }
+                        {
+                            // Mesajı başa \r ekleyerek gönder, böylece eski satır kaybolmaz
+                            senderPort.Write("\r" + textBoxMessage.Text.Trim() + "\n");
+                        }
+                        else
+                        {
+                            // Eski mesajın karakter sayısı kadar geriye git ve sil
+                            string geriSilme = new string('\b', textBoxMessage.Text.Length);
+                            senderPort.Write(geriSilme);  // Eski mesajı sil
+                            senderPort.Write("\r" + textBoxMessage.Text.Trim());  // Yeni mesajı yaz
+                        }
 
 
-     AddLog($"📤 Mesaj gönderildi: {message}");
-         Thread.Sleep(interval);
+                AddLog($"📤 Mesaj gönderildi: {message}");
+                    Thread.Sleep(interval);
+                            }
+                            catch (Exception ex)
+                            {
+                                AddLog($"❌ Hata: {ex.Message}");
+                                isSending = false;
+                            }
+                        }
+                    });
+
+                    sendThread.IsBackground = true;
+                    sendThread.Start();
                 }
                 catch (Exception ex)
                 {
                     AddLog($"❌ Hata: {ex.Message}");
-                    isSending = false;
                 }
             }
-        });
 
-        sendThread.IsBackground = true;
-        sendThread.Start();
+        private void AboutMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("COM Port Veri Aktarım Uygulaması\nVersiyon: 1.0.0\nGeliştirici: [Senin İsmin]",
+                "Hakkında", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+
+
+                private void buttonStop_Click(object sender, EventArgs e)
+                {
+                    isSending = false;
+
+                    if (sendThread != null && sendThread.IsAlive)
+                    {
+                        sendThread.Join();  // Thread düzgün dursun
+                    }
+
+                    if (senderPort != null && senderPort.IsOpen)
+                    {
+                        senderPort.Close();
+                    }
+
+                    if (receiverPort.IsOpen)
+                    {
+                        receiverPort.DataReceived -= ReceiverPort_DataReceived; // Dinlemeyi durdur
+                        receiverPort.Close(); // COM portu kapat
+                    }
+
+                    AddLog("⏹ Yayın ve dinleme durduruldu!");
+                    //MessageBox.Show("Yayın durduruldu!", "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+
+                private void ButtonStopListen_Click(object sender, EventArgs e)
+                {
+                    isSending = false;
+
+                    if (sendThread != null && sendThread.IsAlive)
+                    {
+                        sendThread.Join();  // Thread düzgün dursun
+                    }
+
+                    if (senderPort != null && senderPort.IsOpen)
+                    {
+                        senderPort.Close();
+                    }
+
+                    if (receiverPort.IsOpen)
+                    {
+                        receiverPort.DataReceived -= ReceiverPort_DataReceived; // Dinlemeyi durdur
+                        receiverPort.Close(); // COM portu kapat
+                    }
+
+                    AddLog("⏹ Dinleme durduruldu!");
+                    //MessageBox.Show("Yayın durduruldu!", "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+
+
+                private void ButtonListen_Click(object sender, EventArgs e)
+                {
+                    try
+                    {
+                        if (receiverPort != null && receiverPort.IsOpen)
+                        {
+                            receiverPort.Close();
+                            Thread.Sleep(100); // Portun tamamen kapanmasını bekle
+                        }
+
+                    string portName = comboBoxReceiverPorts.SelectedItem?.ToString() ?? "";
+
+                    
+                    if (string.IsNullOrEmpty(portName))
+                    {
+                        AddLog("❌ Dinleme için port seçilmedi!");
+                        return;
+                    }
+
+                    int baudRate = int.Parse(textBoxReceiverBaudRate.Text);
+                    receiverPort = new SerialPort(portName, baudRate);
+                    receiverPort.DataReceived += ReceiverPort_DataReceived;
+                    receiverPort.Open();
+
+                    if (!receiverPort.IsOpen)
+                    {
+                        AddLog("❌ Dinleme başlatılamadı! Port açılamadı.");
+                        return;
+                    }
+
+                    AddLog("🎧 Dinlemeye başlandı!");
+                }
+                catch (Exception ex)
+                {
+                    AddLog($"❌ Dinleme başlatılamadı: {ex.Message}");
+                }
+            }
+
+        private void ReceiverPort_DataReceived(object sender, SerialDataReceivedEventArgs e)
+{
+    try
+    {
+        string receivedData = receiverPort.ReadExisting().Trim();
+
+        // UI thread'inde çalıştır
+        Invoke(new Action(() =>
+        {
+            if (checkBoxAltSatiraGec.Checked)
+            {
+                // Yeni satır ekle
+                listBoxReceivedMessages.Items.Add(receivedData);
+            }
+            else
+            {
+                // Aynı satırı güncelle
+                if (listBoxReceivedMessages.Items.Count > 0)
+                {
+                    listBoxReceivedMessages.Items[listBoxReceivedMessages.Items.Count - 1] = receivedData;
+                }
+                else
+                {
+                    listBoxReceivedMessages.Items.Add(receivedData);
+                }
+            }
+        }));
     }
     catch (Exception ex)
     {
-        AddLog($"❌ Hata: {ex.Message}");
+        AddLog($"❌ Okuma hatası: {ex.Message}");
     }
 }
 
-private void AboutMenuItem_Click(object sender, EventArgs e)
-{
-    MessageBox.Show("COM Port Veri Aktarım Uygulaması\nVersiyon: 1.0.0\nGeliştirici: [Senin İsmin]",
-        "Hakkında", MessageBoxButtons.OK, MessageBoxIcon.Information);
-}
-
-
-
-        private void buttonStop_Click(object sender, EventArgs e)
-        {
-            isSending = false;
-
-            if (sendThread != null && sendThread.IsAlive)
-            {
-                sendThread.Join();  // Thread düzgün dursun
-            }
-
-            if (senderPort != null && senderPort.IsOpen)
-            {
-                senderPort.Close();
-            }
-
-            AddLog("⏹ Yayın durduruldu!");
-            MessageBox.Show("Yayın durduruldu!", "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Information);
-        }
-
-
-        private void ButtonListen_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                if (receiverPort != null && receiverPort.IsOpen)
-                {
-                    receiverPort.Close();
-                    Thread.Sleep(100); // Portun tamamen kapanmasını bekle
-                }
-
-            string portName = comboBoxReceiverPorts.SelectedItem?.ToString() ?? "";
-
-            
-            if (string.IsNullOrEmpty(portName))
-            {
-                AddLog("❌ Dinleme için port seçilmedi!");
-                return;
-            }
-
-            int baudRate = int.Parse(textBoxReceiverBaudRate.Text);
-            receiverPort = new SerialPort(portName, baudRate);
-            receiverPort.DataReceived += ReceiverPort_DataReceived;
-            receiverPort.Open();
-
-            if (!receiverPort.IsOpen)
-            {
-                AddLog("❌ Dinleme başlatılamadı! Port açılamadı.");
-                return;
-            }
-
-            AddLog("🎧 Dinlemeye başlandı!");
-        }
-        catch (Exception ex)
-        {
-            AddLog($"❌ Dinleme başlatılamadı: {ex.Message}");
-        }
-    }
-
-        private void ReceiverPort_DataReceived(object sender, SerialDataReceivedEventArgs e)
-        {
-            try
-            {
-                string receivedData = receiverPort.ReadLine().Trim(); // Gelen mesajı temizle
-                receivedData = receivedData.Replace("\r", "").Replace("\n", ""); // Gereksiz satır sonu karakterlerini kaldır
-
-                // Artık log listbox'a eklenmeyecek, sadece gelen mesajlar listesinde gösterilecek
-                Invoke(new Action(() =>
-                {
-                    listBoxReceivedMessages.Items.Add(receivedData);
-                }));
-            }
-            catch (Exception ex)
-            {
-                AddLog($"❌ Okuma hatası: {ex.Message}");
-            }
-        }
 
 
         // **Logları ekrana yazan metod**

@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("comPortSender")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a9b91a7116e6e41bc6112688f1079279f174754d")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ee59ea1141a514b32d1b8a8b72a24a7c8255f35c")]
 [assembly: System.Reflection.AssemblyProductAttribute("comPortSender")]
 [assembly: System.Reflection.AssemblyTitleAttribute("comPortSender")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
